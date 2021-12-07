@@ -6,15 +6,6 @@ class TestAddGroup(unittest.TestCase):
     def setUp(self):
         self.wd = WebDriver()
         self.wd.implicitly_wait(30)
-    
-    def test_add_group(self):
-        wd = self.wd
-        self.open_home_page(wd)
-        self.login(wd, username="secret", password="admin")
-        self.open_groups_page(wd)
-        self.create_group(wd, name="group", footer="footer", header="header")
-        self.return_to_groups_page(wd)
-        self.logout(wd)
 
     def logout(self, wd):
         # Logout
@@ -57,6 +48,17 @@ class TestAddGroup(unittest.TestCase):
     def open_home_page(self, wd):
         # open home page
         wd.get("http://localhost/addressbook/")
+    
+    def test_add_group(self):
+        wd = self.wd
+        self.open_home_page(wd)
+        self.login(wd, password="secret", username="admin")
+        self.open_groups_page(wd)
+        self.create_group(wd, name="group", footer="footer", header="header")
+        self.return_to_groups_page(wd)
+        self.logout(wd)
+
+
 
     #def is_element_present(self, how, what):
     #    try: self.wd.find_element(by=how, value=what)
