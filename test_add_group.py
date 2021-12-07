@@ -8,13 +8,23 @@ class TestAddGroup(unittest.TestCase):
         self.wd = WebDriver()
         self.wd.implicitly_wait(30)
 
-    def logout(self, wd):
-        # Logout
-        wd.find_element_by_link_text("Logout").click()
+    def open_home_page(self, wd):
+        # open home page
+        wd.get("http://localhost/addressbook/")
 
-    def return_to_groups_page(self, wd):
-        # return groups page
-        wd.find_element_by_link_text("group page").click()
+    def login(self, wd, password, username):
+        # Login
+        wd.find_element_by_name("user").click()
+        wd.find_element_by_name("user").clear()
+        wd.find_element_by_name("user").send_keys(username)
+        wd.find_element_by_name("pass").click()
+        wd.find_element_by_name("pass").clear()
+        wd.find_element_by_name("pass").send_keys(password)
+        wd.find_element_by_xpath("//input[@value='Login']").click()
+
+    def open_groups_page(self, wd):
+        # open groups page
+        wd.find_element_by_link_text("groups").click()
 
     def create_group(self, wd, group):
         # init group creation
@@ -32,24 +42,15 @@ class TestAddGroup(unittest.TestCase):
         # submit group creation
         wd.find_element_by_name("submit").click()
 
-    def open_groups_page(self, wd):
-        # open groups page
-        wd.find_element_by_link_text("groups").click()
+    def return_to_groups_page(self, wd):
+        # return groups page
+        wd.find_element_by_link_text("group page").click()
 
-    def login(self, wd, password, username):
-        # Login
-        wd.find_element_by_name("user").click()
-        wd.find_element_by_name("user").clear()
-        wd.find_element_by_name("user").send_keys(username)
-        wd.find_element_by_name("pass").click()
-        wd.find_element_by_name("pass").clear()
-        wd.find_element_by_name("pass").send_keys(password)
-        wd.find_element_by_xpath("//input[@value='Login']").click()
+    def logout(self, wd):
+        # Logout
+        wd.find_element_by_link_text("Logout").click()
 
-    def open_home_page(self, wd):
-        # open home page
-        wd.get("http://localhost/addressbook/")
-    
+
     def test_add_group(self):
         wd = self.wd
         self.open_home_page(wd)
