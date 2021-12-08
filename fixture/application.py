@@ -1,17 +1,9 @@
 # импорт библиотеки
-from selenium.webdriver.firefox.webdriver import WebDriver
-from fixture.session import SessionHelper
-from fixture.group import GroupHelper
-from fixture.contact import ContactHelper
+from fixture.manager import Manager
 
-class Application:
-    # создание фикстуры
-    def __init__(self):
-        self.wd = WebDriver()
-        self.wd.implicitly_wait(30)
-        self.session = SessionHelper(self)
-        self.group = GroupHelper(self)
-        self.contact = ContactHelper(self)
+
+class Application(Manager): # инструкция по созданию пищеварительной системы(апликейшен), которая содержит инструкцию о создании почки (менеджер)
+
 
     def open_home_page(self):
         # open home page
