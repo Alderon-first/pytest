@@ -19,5 +19,3 @@ def test_add_contact(app):
                       email="111@111.ru"))
     app.logout()
 
-if __name__ == "__main__":
-    unittest.main()
