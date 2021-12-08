@@ -1,29 +1,18 @@
 # импорт библиотеки
 from selenium.webdriver.firefox.webdriver import WebDriver
+from fixture.session import SessionHelper
 
-class Application():
-
+class Application:
     # создание фикстуры
     def __init__(self):
         self.wd = WebDriver()
         self.wd.implicitly_wait(30)
+        self.session = SessionHelper(self)
 
     def open_home_page(self):
         # open home page
         wd = self.wd #вызов  WebDriver, извлечение ссылки на драйвер из текущего объета
         wd.get("http://localhost/addressbook/")
-
-    def login(self, password, username):
-        # Login
-        wd = self.wd
-        self.open_home_page()
-        wd.find_element_by_name("user").click()
-        wd.find_element_by_name("user").clear()
-        wd.find_element_by_name("user").send_keys(username)
-        wd.find_element_by_name("pass").click()
-        wd.find_element_by_name("pass").clear()
-        wd.find_element_by_name("pass").send_keys(password)
-        wd.find_element_by_xpath("//input[@value='Login']").click()
 
     def open_groups_page(self):
         # open groups page
@@ -48,9 +37,6 @@ class Application():
         # submit group creation
         wd.find_element_by_name("submit").click()
         self.return_to_groups_page()
-
-
-
 
     def return_to_groups_page(self):
         # return groups page
@@ -85,11 +71,6 @@ class Application():
         wd = self.wd
         # return contact page
         wd.find_element_by_link_text("home page").click()
-
-    def logout(self):
-        # Logout
-        wd = self.wd
-        wd.find_element_by_link_text("Logout").click()
 
     def deastroy(self):
         self.wd.quit()
