@@ -8,13 +8,15 @@ class TestAddGroup(unittest.TestCase):
         self.wd = WebDriver()
         self.wd.implicitly_wait(30)
 
-    def open_home_page(self, wd):
+    def open_home_page(self):
         # open home page
+        wd = self.wd #вызов  WebDriver, извлечение ссылки на драйвер из текущего объета
         wd.get("http://localhost/addressbook/")
 
-    def login(self, wd, password, username):
+    def login(self, password, username):
         # Login
-        self.open_home_page(wd)
+        wd = self.wd
+        self.open_home_page()
         wd.find_element_by_name("user").click()
         wd.find_element_by_name("user").clear()
         wd.find_element_by_name("user").send_keys(username)
@@ -23,12 +25,14 @@ class TestAddGroup(unittest.TestCase):
         wd.find_element_by_name("pass").send_keys(password)
         wd.find_element_by_xpath("//input[@value='Login']").click()
 
-    def open_groups_page(self, wd):
+    def open_groups_page(self):
         # open groups page
+        wd = self.wd
         wd.find_element_by_link_text("groups").click()
 
-    def create_group(self, wd, group):
-        self.open_groups_page(wd)
+    def create_group(self, group):
+        wd = self.wd
+        self.open_groups_page()
         # init group creation
         wd.find_element_by_name("new").click()
         # fill groups +
@@ -45,20 +49,21 @@ class TestAddGroup(unittest.TestCase):
         wd.find_element_by_name("submit").click()
         self.return_to_groups_page(wd)
 
-    def return_to_groups_page(self, wd):
+    def return_to_groups_page(self):
         # return groups page
+        wd = self.wd
         wd.find_element_by_link_text("group page").click()
 
-    def logout(self, wd):
+    def logout(self):
         # Logout
+        wd = self.wd
         wd.find_element_by_link_text("Logout").click()
 
 
     def test_add_group(self):
-        wd = self.wd
-        self.login(wd, password="secret", username="admin")
-        self.create_group(wd, Group(name="group", header="header", footer="footer" ))
-        self.logout(wd)
+        self.login(password="secret", username="admin")
+        self.create_group(Group(name="group", header="header", footer="footer"))
+        self.logout()
 
 
 
