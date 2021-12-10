@@ -16,6 +16,7 @@ class Application:
         self.contact = ContactHelper(self)
 
     def is_valid(self):
+        # перехватчик исключений
         try:
             self.wd.current_url
             return True
