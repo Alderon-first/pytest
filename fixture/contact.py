@@ -9,8 +9,8 @@ class ContactHelper:
     def open_home_page(self):
         # open groups page
         wd = self.app.wd
-        if not (wd.current_url.endswith("addressbook/") and len(wd.find_elements_by_name("add")) > 0):
-            wd.find_element_by_link_text("home").click()
+        if not (wd.current_url.endswith("http://localhost/addressbook/") and len(wd.find_elements_by_name("add")) > 0):
+            wd.get("http://localhost/addressbook/")
 
     def create(self, contact):
         wd = self.app.wd
@@ -76,8 +76,7 @@ class ContactHelper:
     def return_contact_page(self):
         wd = self.app.wd
         # return contact page
-        if not (wd.current_url.endswith("addressbook/") and len(wd.find_elements_by_name("searchstring")) > 0):
-            wd.find_element_by_link_text("home page").click()
+        wd.find_element_by_link_text("home page").click()
 
     def count(self):
         wd = self.app.wd
@@ -88,9 +87,12 @@ class ContactHelper:
         wd = self.app.wd
         self.open_home_page()
         contacts = []
-        for element in wd.find_elements_by_css_selector("tr"):
-            # firstname = element.text() rfr yfqnb bvz
-            id_contact = element.find_element_by_name("selected[]").get_attribute("id")
+        for row in wd.find_elements_by_name("entry"):
+            cells = row.find_elements_by_tag_name("td")
+            firstname = cells[2].text
+            lastname = cells[1].text
+            id_contact = cells[0].find_element_by_tag_name("input").get_attribute("value")
             contacts.append(
-                Contact(firstname="text", lastname="text", id_contact=id_contact))
-            return contacts
+                Contact(firstname=firstname, middlename=None, lastname=lastname, mobile=None, email=None,
+                        id_contact=id_contact))
+        return contacts

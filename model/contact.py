@@ -8,7 +8,7 @@ class Contact:
         self.id_contact = id_contact
 
     def __repr__(self):
-        return "%s:%s" % (self.firstname, self.lastname)
+        return "%s:%s:%s" % (self.firstname, self.lastname, self.id_contact)
         # это про вывод информации на консоль
 
     def __eq__(self, other):
