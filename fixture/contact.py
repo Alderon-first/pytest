@@ -66,6 +66,20 @@ class ContactHelper:
         self.return_contact_page()
         self.contacts_cache = None
 
+    def select_contact_by_index(self, index):
+        wd = self.app.wd
+        wd.find_elements_by_name("selected[]")[index].click()
+
+    def delete_contact_by_index(self, index):
+        wd = self.app.wd
+        self.open_home_page()
+        # выбрать первую
+        self.select_contact_by_index(index)
+        wd.find_element_by_xpath("/html/body/div/div[4]/form[2]/div[2]/input").click()
+        wd.switch_to.alert.accept()
+        self.return_contact_page()
+        self.contacts_cache = None
+
     def delete_first_contact(self):
         wd = self.app.wd
         # выбрать первую
