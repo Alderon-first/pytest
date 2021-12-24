@@ -72,27 +72,30 @@ class ContactHelper:
         # удалить первую группу
         wd.find_element_by_xpath("/html/body/div/div[4]/form[2]/div[2]/input").click()
         wd.switch_to.alert.accept()
+        self.return_contact_page()
+        self.contacts = None
 
     def return_contact_page(self):
         wd = self.app.wd
         # return contact page
-        wd.find_element_by_link_text("home page").click()
+        wd.find_element_by_link_text("home").click()
 
     def count(self):
         wd = self.app.wd
         self.open_home_page()
         return len(wd.find_elements_by_name("selected[]"))
 
+    contacts = None
+
     def get_contacts_list(self):
-        wd = self.app.wd
-        self.open_home_page()
-        contacts = []
-        for row in wd.find_elements_by_name("entry"):
-            cells = row.find_elements_by_tag_name("td")
-            firstname = cells[2].text
-            lastname = cells[1].text
-            id_contact = cells[0].find_element_by_tag_name("input").get_attribute("value")
-            contacts.append(
-                Contact(firstname=firstname, middlename=None, lastname=lastname, mobile=None, email=None,
-                        id_contact=id_contact))
-        return contacts
+        if self.contacts is None:
+            wd = self.app.wd
+            self.open_home_page()
+            self.contacts = []
+            for element in wd.find_elements_by_name("entry"):
+                lastname = element.find_elements_by_css_selector("td")[1].text
+                firstname = element.find_elements_by_css_selector("td")[2].text
+                id_contact = element.find_element_by_name("selected[]").get_attribute("value")
+                self.contacts.append(Contact(firstname=firstname, middlename=None, lastname=lastname,
+                                             mobile=None, email=None, id_contact=id_contact))
+        return list(self.contacts)
