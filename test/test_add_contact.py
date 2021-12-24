@@ -8,6 +8,6 @@ def test_add_contact(app):
                       mobile="8-888-88-88-88", email="111@111.ru", id_contact=None)
     app.contact.create(contact)
     new_groups = app.contact.get_contacts_list()
-    assert len(old_groups)+1 == len(new_groups)
+    assert len(old_groups)+1 == app.contact.count()
     old_groups.append(contact)
     assert sorted(old_groups, key=Contact.id_or_max) == sorted(new_groups, key=Contact.id_or_max)
