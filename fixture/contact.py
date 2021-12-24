@@ -36,6 +36,7 @@ class ContactHelper:
         # submit contact creation
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
         self.return_contact_page()
+        self.contacts = None
 
     def change_first_contact(self, contact):
         wd = self.app.wd
@@ -63,6 +64,7 @@ class ContactHelper:
         # submit contact creation
         wd.find_element_by_xpath("/html/body/div/div[4]/form[1]/input[22]").click()
         self.return_contact_page()
+        self.contacts = None
 
     def delete_first_contact(self):
         wd = self.app.wd
