@@ -1,3 +1,6 @@
+from sys import maxsize
+
+
 class Group:
 
     def __init__(self, name=None, header=None, footer=None, id_group=None):
@@ -11,6 +14,14 @@ class Group:
         # это про вывод информации на консоль
 
     def __eq__(self, other):
-        return self.id_group == other.id_group and self.name == other.name
+        return (self.id_group is None
+                or other.id_group is None
+                or self.id_group == other.id_group) \
+               and self.name == other.name
         # это про логическое сравнение параметров (чтобы сравнивалось значение, а не значение+расположение информации)
 
+    def id_or_max(self):
+        if self.id_group:
+            return int(self.id_group)
+        else:
+            return maxsize
