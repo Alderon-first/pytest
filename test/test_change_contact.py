@@ -12,7 +12,7 @@ def test_change_some_contact(app):
     contact = Contact(firstname="Name 4", middlename="Name 5", lastname="Name 6",
                       mobile="9-888-88-88-88", email="222@222.ru", id_contact=None)
     contact.id_contact = old_contacts[index].id_contact
-    app.contact.change_contact_by_index(index,contact)
+    app.contact.change_contact_by_index(index, contact)
     new_contacts = app.contact.get_contacts_list()
     assert len(old_contacts) == len(new_contacts)
     old_contacts[index] = contact
