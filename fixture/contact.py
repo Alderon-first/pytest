@@ -38,13 +38,14 @@ class ContactHelper:
         self.return_contact_page()
         self.contacts_cache = None
 
-    def change_first_contact(self, contact):
+    def change_first_contact(self, index, contact):
         wd = self.app.wd
         # выбрать первую
         self.open_home_page()
-        wd.find_element_by_name("selected[]").click()
+        self.open_contact_by_index(0)
+        #wd.find_element_by_name("selected[]").click()
         # изменить выбранную
-        wd.find_element_by_xpath("/html/body/div/div[4]/form[2]/table/tbody/tr[2]/td[8]/a/img").click()
+        # wd.find_element_by_xpath("/html/body/div/div[4]/form[2]/table/tbody/tr[2]/td[8]/a/img").click()
         # fill contact form
         wd.find_element_by_name("firstname").click()
         wd.find_element_by_name("firstname").clear()
@@ -62,7 +63,7 @@ class ContactHelper:
         wd.find_element_by_name("email").clear()
         wd.find_element_by_name("email").send_keys(contact.email)
         # submit contact creation
-        wd.find_element_by_xpath("/html/body/div/div[4]/form[1]/input[22]").click()
+        wd.find_element_by_name("update").click()
         self.return_contact_page()
         self.contacts_cache = None
 
@@ -70,9 +71,9 @@ class ContactHelper:
         wd = self.app.wd
         # выбрать первую
         self.open_home_page()
-        self.select_contact_by_index(index)
+        self.open_contact_by_index(index)
         # изменить выбранную
-        wd.find_element_by_xpath("/html/body/div/div[4]/form[2]/table/tbody/tr[2]/td[8]/a/img").click()
+        #wd.find_element_by_xpath("/html/body/div/div[4]/form[2]/table/tbody/tr[2]/td[8]/a/img").click()
         # fill contact form
         wd.find_element_by_name("firstname").click()
         wd.find_element_by_name("firstname").clear()
@@ -90,13 +91,18 @@ class ContactHelper:
         wd.find_element_by_name("email").clear()
         wd.find_element_by_name("email").send_keys(contact.email)
         # submit contact creation
-        wd.find_element_by_xpath("/html/body/div/div[4]/form[1]/input[22]").click()
+        wd.find_element_by_name("update").click()
+
         self.return_contact_page()
         self.contacts_cache = None
 
-    def select_contact_by_index(self, index):
+    def open_contact_by_index(self, index):
         wd = self.app.wd
-        wd.find_elements_by_name("selected[]")[index].click()
+        self.app.open_home_page()
+        row = wd.find_elements_by_name("entry")[index]
+        cell = row.find_elements_by_tag_name("td")[7]
+        cell.find_element_by_tag_name("a").click()
+        #wd.find_elements_by_name("selected[]")[index].click()
 
     def delete_contact_by_index(self, index):
         wd = self.app.wd
