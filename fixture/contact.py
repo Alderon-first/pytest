@@ -42,7 +42,7 @@ class ContactHelper:
         wd = self.app.wd
         # выбрать первую
         self.open_home_page()
-        self.open_contact_by_index(0)
+        self.open_contact_by_index(index)
         #wd.find_element_by_name("selected[]").click()
         # изменить выбранную
         # wd.find_element_by_xpath("/html/body/div/div[4]/form[2]/table/tbody/tr[2]/td[8]/a/img").click()
@@ -103,6 +103,10 @@ class ContactHelper:
         cell = row.find_elements_by_tag_name("td")[7]
         cell.find_element_by_tag_name("a").click()
         #wd.find_elements_by_name("selected[]")[index].click()
+
+    def select_contact_by_index(self, index):
+        wd = self.app.wd
+        wd.find_elements_by_name("selected[]")[index].click()
 
     def delete_contact_by_index(self, index):
         wd = self.app.wd
