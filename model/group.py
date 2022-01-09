@@ -10,7 +10,7 @@ class Group:
         self.id_group = id_group
 
     def __repr__(self):
-        return "%s:%s" % (self.id_group, self.name)
+        return "%s:%s;%s;%s" % (self.id_group, self.name, self.header, self.footer)
         # это про вывод информации на консоль
 
     def __eq__(self, other):
