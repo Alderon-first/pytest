@@ -26,14 +26,26 @@ class ContactHelper:
         wd.find_element_by_name("middlename").clear()
         wd.find_element_by_name("middlename").send_keys(contact.middlename)
         wd.find_element_by_name("lastname").click()
-        wd.find_element_by_name("lastname").clear()
+        wd.find_element_by_name("address").clear()
         wd.find_element_by_name("lastname").send_keys(contact.lastname)
+        wd.find_element_by_name("address").click()
+        wd.find_element_by_name("address").clear()
+        wd.find_element_by_name("address").send_keys(contact.address)
         wd.find_element_by_name("mobile").click()
         wd.find_element_by_name("mobile").clear()
         wd.find_element_by_name("mobile").send_keys(contact.mobile)
+        wd.find_element_by_name("home").click()
+        wd.find_element_by_name("home").clear()
+        wd.find_element_by_name("home").send_keys(contact.home_telephone)
+        wd.find_element_by_name("work").click()
+        wd.find_element_by_name("work").clear()
+        wd.find_element_by_name("work").send_keys(contact.work_telephone)
         wd.find_element_by_name("email").click()
         wd.find_element_by_name("email").clear()
         wd.find_element_by_name("email").send_keys(contact.email)
+        wd.find_element_by_name("email2").click()
+        wd.find_element_by_name("email2").clear()
+        wd.find_element_by_name("email2").send_keys(contact.email2)
         # submit contact creation
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
         self.return_contact_page()
@@ -133,10 +145,14 @@ class ContactHelper:
             for element in wd.find_elements_by_name("entry"):
                 lastname = element.find_elements_by_css_selector("td")[1].text
                 firstname = element.find_elements_by_css_selector("td")[2].text
+                address = element.find_elements_by_css_selector("td")[3].text
+                all_emails = element.find_elements_by_css_selector("td")[4].text
                 id_contact = element.find_element_by_name("selected[]").get_attribute("value")
-                all_phones = element.find_elements_by_css_selector("td")[5].text.splitlines()
+                all_phones = element.find_elements_by_css_selector("td")[5].text
                 self.contacts_cache.append(Contact(firstname=firstname, middlename=None, lastname=lastname,
-                                                   mobile=all_phones[0], email=None, id_contact=id_contact))
+                                                   address=address, id_contact=id_contact,
+                                                   all_emails_from_home_page=all_emails,
+                                                   all_phones_from_home_page=all_phones))
         return list(self.contacts_cache)
 
     def get_contact_info_from_edit_page(self, index):
