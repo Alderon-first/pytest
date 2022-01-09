@@ -1,4 +1,5 @@
 from model.contact import Contact
+import re
 
 
 class ContactHelper:
@@ -146,5 +147,13 @@ class ContactHelper:
         id_contact = wd.find_element_by_name("id").get_attribute('value')
         mobile = wd.find_element_by_name("mobile").get_attribute('value')
         return Contact(firstname=firstname, lastname=lastname, id_contact=id_contact, mobile=mobile,
+                       email=None, middlename=None)
+
+    def get_contact_from_view_page(self, index):
+        wd = self.app.wd
+        self.open_contact_view_by_index(index)
+        text = wd.find_element_by_id("content").text
+        mobile = re.search("M: (.*)", text).group(1)
+        return Contact(firstname=None, lastname=None, id_contact=None, mobile=mobile,
                        email=None, middlename=None)
 
