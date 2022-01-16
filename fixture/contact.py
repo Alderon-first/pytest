@@ -10,8 +10,10 @@ class ContactHelper:
     def open_home_page(self):
         # open groups page
         wd = self.app.wd
-        if not (wd.current_url.endswith("http://localhost/addressbook/") and len(wd.find_elements_by_name("add")) > 0):
-            wd.get("http://localhost/addressbook/")
+        # if not (wd.current_url.endswith("http://localhost/addressbook/") and len(wd.find_elements_by_name("add")) > 0):
+        #     wd.get("http://localhost/addressbook/")
+        if not len(wd.find_elements_by_name("searchstring")) > 0:
+            wd.find_element_by_link_text("home").click()
 
     def create(self, contact):
         wd = self.app.wd
