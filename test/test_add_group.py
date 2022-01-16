@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import pytest
 from model.group import Group
-c
+from data.add_group import testdata
 
 
 @pytest.mark.parametrize("group", testdata, ids=[repr(x)for x in testdata])

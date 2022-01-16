@@ -164,19 +164,24 @@ class ContactHelper:
         address = wd.find_element_by_name("address").get_attribute('value')
         email = wd.find_element_by_name("email").get_attribute('value')
         email2 = wd.find_element_by_name("email2").get_attribute('value')
+        email3 = wd.find_element_by_name("email2").get_attribute('value')
         home_telephone = wd.find_element_by_name("home").get_attribute("value")
         work_telephone = wd.find_element_by_name("work").get_attribute("value")
         mobile = wd.find_element_by_name("mobile").get_attribute('value')
+        fax = wd.find_element_by_name("mobile").get_attribute('value')
         return Contact(firstname=firstname, lastname=lastname, id_contact=id_contact, address=address,
-                       email=email, email2=email2,
+                       email=email, email2=email2, email3=email3,
                        home_telephone=home_telephone, mobile=mobile,
-                       work_telephone=work_telephone)
+                       work_telephone=work_telephone, fax=fax)
 
     def get_contact_from_view_page(self, index):
         wd = self.app.wd
         self.open_contact_view_by_index(index)
         text = wd.find_element_by_id("content").text
         mobile = re.search("M: (.*)", text).group(1)
+        home_telephone = re.search("H: (.*)", text).group(1)
+        work_telephone = re.search("W: (.*)", text).group(1)
+        fax = re.search("P: (.*)", text).group(1)
         return Contact(firstname=None, lastname=None, id_contact=None, mobile=mobile,
-                       email=None, middlename=None)
-
+                       email=None, middlename=None, home_telephone=home_telephone, work_telephone=work_telephone,
+                       fax=fax)
