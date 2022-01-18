@@ -30,7 +30,7 @@ class DbFixture:
         try:
             cursor.execute("""SELECT id, firstname, middlename, lastname, nickname, company, title, address, home, 
             mobile, work, fax, email, email2, email3, homepage, 
-            bday, bmonth, byear, aday, amonth, ayear, address2, phone2 
+            bday, bmonth, byear, aday, amonth, ayear, address2
             FROM addressbook 
             WHERE deprecated ='0000-00-00 00:00:00'""")
             for row in cursor:
@@ -39,16 +39,11 @@ class DbFixture:
                  email3, homepage, bday, bmonth, byear, aday, amonth,
                  ayear, address2) = row
                 contact_list.append(Contact(id_contact=str(id), firstname=firstname, middlename=middlename,
-                                            lastname=lastname, nickname=nickname,
-                                            title=title, company=company,
+                                            lastname=lastname, company=company,
                                             address=address, home_telephone=homephone,
                                             mobile=mobilephone, work_telephone=workphone,
                                             fax=faxphone, email=email,
                                             email2=email2, email3=email3,
-                                            homepage=homepage,
-                                            bday=bday, bmonth=bmonth, byear=byear,
-                                            aday=aday, amonth=amonth, ayear=ayear,
-                                            address2=address2,
                                             all_phones_from_home_page=homephone+mobilephone+workphone+faxphone,
                                             all_emails_from_home_page=email+email2+email3))
         finally:
