@@ -114,6 +114,19 @@ class ContactHelper:
         self.return_contact_page()
         self.contacts_cache = None
 
+    def delete_contact_by_id(self, id_contact):
+        wd = self.app.wd
+        self.open_home_page()
+        self.select_contact_by_id(id_contact)
+        wd.find_element_by_xpath("/html/body/div/div[4]/form[2]/div[2]/input").click()
+        wd.switch_to.alert.accept()
+        self.return_contact_page()
+        self.contacts_cache = None
+
+    def select_contact_by_id(self, id_contact):
+        wd = self.app.wd
+        wd.find_element_by_css_selector("input[value='%s']" % id_contact).click()
+
     def delete_first_contact(self):
         wd = self.app.wd
         # выбрать первую
@@ -186,4 +199,3 @@ class ContactHelper:
         return Contact(firstname=None, lastname=None, id_contact=None, mobile=mobile,
                        email=None, middlename=None, home_telephone=home_telephone, work_telephone=work_telephone,
                        phone2=phone2)
-

@@ -116,7 +116,7 @@ class GroupHelper:
 
     def select_group_by_id(self, id_group):
         wd = self.app.wd
-        wd.find_element_by_css_selector(f"input[value='{id_group}']").click()
+        wd.find_element_by_css_selector("input[value='%s']" % id_group).click()
 
     def return_to_groups_page(self):
         # return groups page
