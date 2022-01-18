@@ -85,10 +85,47 @@ class ContactHelper:
         self.return_contact_page()
         self.contacts_cache = None
 
+
+    def change_contact_by_id(self, id_contact, contact):
+        wd = self.app.wd
+        # выбрать первую
+        self.open_home_page()
+        self.open_contact_by_id(id_contact)
+        # изменить выбранную
+        # wd.find_element_by_xpath("/html/body/div/div[4]/form[2]/table/tbody/tr[2]/td[8]/a/img").click()
+        # fill contact form
+        wd.find_element_by_name("firstname").click()
+        wd.find_element_by_name("firstname").clear()
+        wd.find_element_by_name("firstname").send_keys(contact.firstname)
+        wd.find_element_by_name("middlename").click()
+        wd.find_element_by_name("middlename").clear()
+        wd.find_element_by_name("middlename").send_keys(contact.middlename)
+        wd.find_element_by_name("lastname").click()
+        wd.find_element_by_name("lastname").clear()
+        wd.find_element_by_name("lastname").send_keys(contact.lastname)
+        wd.find_element_by_name("mobile").click()
+        wd.find_element_by_name("mobile").clear()
+        wd.find_element_by_name("mobile").send_keys(contact.mobile)
+        wd.find_element_by_name("email").click()
+        wd.find_element_by_name("email").clear()
+        wd.find_element_by_name("email").send_keys(contact.email)
+        # submit contact creation
+        wd.find_element_by_name("update").click()
+        self.return_contact_page()
+        self.contacts_cache = None
+
     def open_contact_by_index(self, index):
         wd = self.app.wd
         self.app.open_home_page()
         row = wd.find_elements_by_name("entry")[index]
+        cell = row.find_elements_by_tag_name("td")[7]
+        cell.find_element_by_tag_name("a").click()
+        # wd.find_elements_by_name("selected[]")[index].click()
+
+    def open_contact_by_id(self, id_contact):
+        wd = self.app.wd
+        self.app.open_home_page()
+        row = wd.find_elements_by_name("entry")[id]
         cell = row.find_elements_by_tag_name("td")[7]
         cell.find_element_by_tag_name("a").click()
         # wd.find_elements_by_name("selected[]")[index].click()

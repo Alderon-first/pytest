@@ -4,7 +4,7 @@ from random import randrange
 
 
 def test_change_some_contact(app, db):
-    if app.contact.count() == 0:
+    if len(db.get_contact_list()) == 0:
         app.contact.create(Contact(firstname="Name 1", middlename="Name 2", lastname="Name 3", mobile="8-888-88-88-88",
                                    email="111@111.ru", id_contact=None))
     old_contacts = db.get_contact_list()
