@@ -2,14 +2,6 @@ from sys import maxsize
 
 
 class Contact:
-   # def __init__(self, firstname, middlename, lastname, mobile, email, id_contact, all_phones_frome_homepage=None):
-   #     self.firstname = firstname
-   #     self.middlename = middlename
-   #    self.lastname = lastname
-   #    self.mobile = mobile
-   #    self.all_phones_frome_homepage = all_phones_frome_homepage
-   #    self.email = email
-   #    self.id_contact = id_contact
 
     def __init__(self, firstname=None, middlename=None, lastname=None, nickname=None, title=None, company=None,
                  address=None, home_telephone=None, mobile=None, work_telephone=None, fax=None, email=None,
@@ -48,13 +40,12 @@ class Contact:
         # это про вывод информации на консоль
 
     def __eq__(self, other):
-        return (self.id_contact is None
-                or other.id_contact is None
-                or self.id_contact == other.id_contact) \
+        return (self.id_contact is None or other.id_contact is None or self.id_contact == other.id_contact) \
                and self.firstname == other.firstname \
                and self.lastname == other.lastname
         # это про логическое сравнение параметров (чтобы сравнивалось значение, а не значение+расположение информации)
-# если у контакта есть id, возвращаем его, если нет - возвращаем максимальное число.
+
+    # если у контакта есть id, возвращаем его, если нет - возвращаем максимальное число.
     # этот метод нужен для правильной сортировки
 
     def id_or_max(self):

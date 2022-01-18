@@ -1,8 +1,8 @@
 # импорт библиотеки
 from selenium import webdriver
-from fixture.contact import ContactHelper
-from fixture.group import GroupHelper
 from fixture.session import SessionHelper
+from fixture.group import GroupHelper
+from fixture.contact import ContactHelper
 
 
 class Application:
@@ -23,7 +23,6 @@ class Application:
         self.base_url = base_url
 
     def is_valid(self):
-        # перехватчик исключений
         try:
             self.wd.current_url
             return True

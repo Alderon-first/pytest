@@ -10,8 +10,6 @@ class ContactHelper:
     def open_home_page(self):
         # open groups page
         wd = self.app.wd
-        # if not (wd.current_url.endswith("http://localhost/addressbook/") and len(wd.find_elements_by_name("add")) > 0):
-        #     wd.get("http://localhost/addressbook/")
         if not len(wd.find_elements_by_name("searchstring")) > 0:
             wd.find_element_by_link_text("home").click()
 
@@ -57,6 +55,7 @@ class ContactHelper:
         wd = self.app.wd
         # выбрать первую
         self.select_contact_by_index(0)
+        self.contacts_cache = None
 
     def change_contact_by_index(self, index, contact):
         wd = self.app.wd
@@ -83,7 +82,6 @@ class ContactHelper:
         wd.find_element_by_name("email").send_keys(contact.email)
         # submit contact creation
         wd.find_element_by_name("update").click()
-
         self.return_contact_page()
         self.contacts_cache = None
 
@@ -163,14 +161,15 @@ class ContactHelper:
         firstname = wd.find_element_by_name("firstname").get_attribute('value')
         lastname = wd.find_element_by_name("lastname").get_attribute('value')
         id_contact = wd.find_element_by_name("id").get_attribute('value')
-        address = wd.find_element_by_name("address").get_attribute('value')
+        address = wd.find_element_by_name("address").text.strip()
         email = wd.find_element_by_name("email").get_attribute('value')
         email2 = wd.find_element_by_name("email2").get_attribute('value')
         email3 = wd.find_element_by_name("email2").get_attribute('value')
         home_telephone = wd.find_element_by_name("home").get_attribute("value")
         work_telephone = wd.find_element_by_name("work").get_attribute("value")
         mobile = wd.find_element_by_name("mobile").get_attribute('value')
-        fax = wd.find_element_by_name("mobile").get_attribute('value')
+        # fax = wd.find_element_by_name("mobile").get_attribute('value')
+        fax = wd.find_element_by_name("phone2").get_attribute("value")
         return Contact(firstname=firstname, lastname=lastname, id_contact=id_contact, address=address,
                        email=email, email2=email2, email3=email3,
                        home_telephone=home_telephone, mobile=mobile,
@@ -187,3 +186,4 @@ class ContactHelper:
         return Contact(firstname=None, lastname=None, id_contact=None, mobile=mobile,
                        email=None, middlename=None, home_telephone=home_telephone, work_telephone=work_telephone,
                        fax=fax)
+
