@@ -164,16 +164,16 @@ class ContactHelper:
         address = wd.find_element_by_name("address").text.strip()
         email = wd.find_element_by_name("email").get_attribute('value')
         email2 = wd.find_element_by_name("email2").get_attribute('value')
-        email3 = wd.find_element_by_name("email2").get_attribute('value')
+        email3 = wd.find_element_by_name("email3").get_attribute('value')
         home_telephone = wd.find_element_by_name("home").get_attribute("value")
         work_telephone = wd.find_element_by_name("work").get_attribute("value")
         mobile = wd.find_element_by_name("mobile").get_attribute('value')
         # fax = wd.find_element_by_name("mobile").get_attribute('value')
-        fax = wd.find_element_by_name("phone2").get_attribute("value")
+        phone2 = wd.find_element_by_name("phone2").get_attribute("value")
         return Contact(firstname=firstname, lastname=lastname, id_contact=id_contact, address=address,
                        email=email, email2=email2, email3=email3,
                        home_telephone=home_telephone, mobile=mobile,
-                       work_telephone=work_telephone, fax=fax)
+                       work_telephone=work_telephone, phone2=phone2)
 
     def get_contact_from_view_page(self, index):
         wd = self.app.wd
@@ -182,8 +182,8 @@ class ContactHelper:
         mobile = re.search("M: (.*)", text).group(1)
         home_telephone = re.search("H: (.*)", text).group(1)
         work_telephone = re.search("W: (.*)", text).group(1)
-        fax = re.search("P: (.*)", text).group(1)
+        phone2 = re.search("P: (.*)", text).group(1)
         return Contact(firstname=None, lastname=None, id_contact=None, mobile=mobile,
                        email=None, middlename=None, home_telephone=home_telephone, work_telephone=work_telephone,
-                       fax=fax)
+                       phone2=phone2)
 
