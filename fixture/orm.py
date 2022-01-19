@@ -2,7 +2,7 @@ from pony.orm import *
 from datetime import datetime
 from model.group import Group
 from model.contact import Contact
-
+from pymysql.converters import decoders
 
 class ORMFixture:
 
@@ -23,7 +23,7 @@ class ORMFixture:
         deprecated = Optional(datetime, column="deprecated")
 
     def __init__(self, host, name, user, password):
-        self.db.bind("mysql", host=host, database=name, user=user, password=password)
+        self.db.bind("mysql", host=host, database=name, user=user, password=password, conv=decoders)
         self.db.generate_mapping()
         sql_debug(True)
 
