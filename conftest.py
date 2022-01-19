@@ -6,7 +6,7 @@ import importlib
 from fixture.application import Application
 import jsonpickle
 from fixture.db import DbFixture
-from fixture.orm import ORMFixture
+#from fixture.orm import ORMFixture
 
 fixture = None
 target = None
