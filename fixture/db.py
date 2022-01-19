@@ -1,7 +1,7 @@
 import pymysql.cursors
 from model.group import Group
 from model.contact import Contact
-
+from pymysql.converters import decoders
 
 class DbFixture:
 
